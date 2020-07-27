@@ -9,9 +9,12 @@ import os
 import tqdm
 import LeNet5
 
+seed = torch.seed()
+print(f'Current seed: {seed}\n')
+
 # to allow for training in GPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(device)
+print(f'Current Device: {device}\n')
 
 # 1. load the MNIST handwriting data
 # store the data in the data directory located at the parent directory of the code directory
