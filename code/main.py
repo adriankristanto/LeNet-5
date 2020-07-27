@@ -18,19 +18,23 @@ print(device)
 DATA_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../data'
 # reference: https://discuss.pytorch.org/t/generic-question-about-batch-sizes/1321/3
 BATCH_SIZE = 256
-NUM_WORKERS = 8
+NUM_WORKERS = 0
 
 # reference: https://discuss.pytorch.org/t/normalization-in-the-mnist-example/457
 # the original image size of MNIST handwriting data is (28, 28)
 # however, the model expects (32,32)
 transform = transforms.Compose(
     [transforms.Resize((32,32)),
-    transforms.ToTensor()]
+    transforms.ToTensor(),
+    transforms.Normalize((0.1307,), (0.3081,))]
 )
 
 trainset = torchvision.datasets.MNIST(root=DATA_PATH, train=True, download=True, transform=transform)
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=BATCH_SIZE, shuffle=True, num_workers=NUM_WORKERS)
 # print(len(trainloader))
+
+# print(trainset.train_data.float().mean()/255) # mean: 0.1307
+# print(trainset.train_data.float().std()/255) # standard deviation: 0.3081
 
 testset = torchvision.datasets.MNIST(root=DATA_PATH, train=False, download=True, transform=transform)
 testloader = torch.utils.data.DataLoader(testset, batch_size=BATCH_SIZE, shuffle=False, num_workers=NUM_WORKERS)
@@ -56,7 +60,7 @@ LEARNING_RATE=0.001
 optimizer = optim.Adam(net.parameters(), lr=LEARNING_RATE)
 
 # 5. train the model
-EPOCH = 10
+EPOCH = 16
 for epoch in range(EPOCH):
     epoch_loss = 0.0
     for data in tqdm.tqdm(trainloader, desc=f'Epoch {epoch}/{EPOCH}'):
