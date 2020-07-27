@@ -56,7 +56,12 @@ class Net(nn.Module):
         # flatten the output of the second layer
         # where x.size(0) is the batch size
         # and -1 will be replaced with 5x5x16
-        x = x.view(x.size(0), -1)
+        # x = x.view(x.size(0), -1)
+        # another way of doing this is to use flatten
+        # note that we use start_dim=1 because dim 0 is the batch dimension
+        # if we don't use start_dim=1, we will get torch.Size([400]), which doesn't have the batch dim
+        # this will cause errors for the subsequent layers
+        x = torch.flatten(x, start_dim=1)
         # pass through the third layer
         x = self.fc3(x)
         x = F.relu(x)
@@ -68,3 +73,11 @@ class Net(nn.Module):
         # reference: https://towardsdatascience.com/understanding-dimensions-in-pytorch-6edf9972d3be
         x = F.softmax(x, dim=1)
         return x
+
+if __name__ == "__main__":
+    net = Net()
+    print(net)
+
+    # 1 batch, 1 channel, 32x32 input size
+    x = torch.randn([1,1,32,32])
+    net.forward(x)
