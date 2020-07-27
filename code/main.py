@@ -59,7 +59,7 @@ optimizer = optim.Adam(net.parameters(), lr=LEARNING_RATE)
 EPOCH = 10
 for epoch in range(EPOCH):
     epoch_loss = 0.0
-    for data in tqdm(trainloader):
+    for data in tqdm.tqdm(trainloader):
         inputs, labels = data[0].to(device), data[1].to(device)
         # 5a. zero the gradients
         optimizer.zero_grad()
@@ -84,7 +84,7 @@ correct = 0
 total = 0
 
 with torch.no_grad():
-    for data in tqdm(testloader):
+    for data in tqdm.tqdm(testloader):
         images, labels = data[0].to(device), data[1].to(device)
         outputs = net(images)
         # get the index that gives the maximum prediction
