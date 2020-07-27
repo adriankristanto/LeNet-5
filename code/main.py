@@ -24,8 +24,7 @@ NUM_WORKERS = 0
 # the original image size of MNIST handwriting data is (28, 28)
 # however, the model expects (32,32)
 train_transform = transforms.Compose(
-    [transforms.RandomAffine(degrees=45, translate=(0.1, 0.1), scale=(0.8, 1.2)),
-    transforms.Resize((32,32)),
+    [transforms.Resize((32,32)),
     transforms.ToTensor(),
     transforms.Normalize((0.1307,), (0.3081,))]
 )
