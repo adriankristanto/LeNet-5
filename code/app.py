@@ -43,4 +43,4 @@ if __name__ == "__main__":
     # predict image
     IMAGE_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../sample/'
     IMAGE_NAME = 'sample0.png'
-    print(predict(IMAGE_PATH + IMAGE_NAME))
+    print(f'prediction: {predict(IMAGE_PATH + IMAGE_NAME)}')
