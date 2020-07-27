@@ -30,9 +30,11 @@ transform = transforms.Compose(
 
 trainset = torchvision.datasets.MNIST(root=DATA_PATH, train=True, download=True, transform=transform)
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=BATCH_SIZE, shuffle=True, num_workers=NUM_WORKERS)
+# print(len(trainloader))
 
 testset = torchvision.datasets.MNIST(root=DATA_PATH, train=False, download=True, transform=transform)
 testloader = torch.utils.data.DataLoader(testset, batch_size=BATCH_SIZE, shuffle=False, num_workers=NUM_WORKERS)
+# print(len(testloader))
 
 # code to show the image:
 # dataiter = iter(trainloader)
@@ -85,7 +87,13 @@ with torch.no_grad():
     for data in tqdm(testloader):
         images, labels = data[0].to(device), data[1].to(device)
         outputs = net(images)
-        correct += (torch.argmax(outputs, 1) == labels).sum().item()
+        # get the index that gives the maximum prediction
+        # for each input image
+        # that's why we use argmax() instead of max()
+        # dim=1 because the output from the forward propagation would be 
+        # of shape (batch_size, prediction_for_each_label), in this case, prediction_for_each_label = 10
+        # we want to reduce it to (batch_size, 1) to get only 1 label with maximum prediction value
+        correct += (torch.argmax(outputs, dim=1) == labels).sum().item()
         total += len(labels)
 
 print(f'Accuracy: {correct / total * 100}')

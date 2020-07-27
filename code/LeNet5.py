@@ -71,6 +71,8 @@ class Net(nn.Module):
         # pass through the fifth layer
         x = self.fc5(x)
         # reference: https://towardsdatascience.com/understanding-dimensions-in-pytorch-6edf9972d3be
+        # since the input to softmax is of shape (batch_size,84)
+        # we only want to perform softmax on 84, thus, we ignore the batch_size, i.e. dim=1
         x = F.softmax(x, dim=1)
         return x
 
