@@ -59,7 +59,7 @@ optimizer = optim.Adam(net.parameters(), lr=LEARNING_RATE)
 EPOCH = 10
 for epoch in range(EPOCH):
     epoch_loss = 0.0
-    for data in tqdm.tqdm(trainloader):
+    for data in tqdm.tqdm(trainloader, desc=f'Epoch {epoch}/{EPOCH}'):
         inputs, labels = data[0].to(device), data[1].to(device)
         # 5a. zero the gradients
         optimizer.zero_grad()
