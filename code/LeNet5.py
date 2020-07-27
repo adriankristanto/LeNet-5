@@ -79,5 +79,5 @@ if __name__ == "__main__":
     print(net)
 
     # 1 batch, 1 channel, 32x32 input size
-    x = torch.randn([1,1,32,32])
-    net.forward(x)
+    # x = torch.randn([1,1,32,32])
+    # print(net(x))
