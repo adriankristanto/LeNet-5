@@ -109,4 +109,4 @@ with torch.no_grad():
         correct += (torch.argmax(outputs, dim=1) == labels).sum().item()
         total += len(labels)
 
-print(f'Accuracy: {correct / total * 100}')
+print(f'Accuracy: {correct / total * 100}%')
