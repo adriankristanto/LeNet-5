@@ -76,6 +76,7 @@ class Net(nn.Module):
         x = F.softmax(x, dim=1)
         return x
 
+
 if __name__ == "__main__":
     net = Net()
     print(net)

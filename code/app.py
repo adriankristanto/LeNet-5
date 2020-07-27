@@ -31,6 +31,7 @@ def predict(image_path):
     # print(output)
     return torch.argmax(output, dim=1).item()
 
+
 if __name__ == "__main__":
     # load the model
     FILEPATH = os.path.dirname(os.path.realpath(__file__)) + '/../model/'
