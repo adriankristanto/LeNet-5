@@ -12,7 +12,7 @@ class Net(nn.Module):
         # input size: 32x32x1
         # output size: 28x28x6
         # filter size: 5x5
-        self.conv1 = nn.Conv2d(in_channel=1, out_channel=6, kernel_size=(5,5))
+        self.conv1 = nn.Conv2d(in_channels=1, out_channel=6, kernel_size=(5,5))
         # POOL1
         # input size: 28x28x6
         # output size: 14x14x6
@@ -23,7 +23,7 @@ class Net(nn.Module):
         # input size: 14x14x6
         # output size: 10x10x16
         # filter size: 5x5
-        self.conv2 = nn.Conv2d(in_channel=6, out_channel=16, kernel_size=(5,5))
+        self.conv2 = nn.Conv2d(in_channels=6, out_channel=16, kernel_size=(5,5))
         # POOL2
         # input size: 10x10x16
         # output size: 5x5x16
