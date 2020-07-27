@@ -13,16 +13,18 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # load the test data
 transform = transforms.Compose(
-    [transforms.Resize((32, 32)),
+    [transforms.Grayscale(),
+    transforms.Resize((32, 32)),
     transforms.ToTensor(),
     transforms.Normalize((0.1307,), (0.3081,))]
 )
 
 def predict(image_path):
     # convert the image to a greyscale image
-    image = PIL.Image.open(image_path).convert('L')
+    image = PIL.Image.open(image_path)
     # resize the image, transform the image to tensor, and normalise it
     img_tensor = transform(image).unsqueeze_(0)
+    # print(img_tensor.shape)
     # forward propagation
     output = net(img_tensor)
     # return prediction
@@ -39,5 +41,5 @@ if __name__ == "__main__":
 
     # predict image
     IMAGE_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../sample/'
-    IMAGE_NAME = 'sample0.png'
+    IMAGE_NAME = 'sample3.png'
     print(predict(IMAGE_PATH + IMAGE_NAME))
