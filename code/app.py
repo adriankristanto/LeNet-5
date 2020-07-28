@@ -3,8 +3,6 @@ import torchvision
 import torchvision.transforms as transforms
 import LeNet5 
 import tqdm
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 import os
 import numpy as np
 import PIL
