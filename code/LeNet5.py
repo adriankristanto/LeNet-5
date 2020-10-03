@@ -32,6 +32,8 @@ class Net(nn.Module):
             # filter size: 2x2
             # stride: 2 horizontal steps, 2 vertical steps
             nn.MaxPool2d(kernel_size=(2,2), stride=(2,2)),
+            # added flatten layer to flatten the image into a vector
+            nn.Flatten(),
             # FC3
             # input size: 5x5x16
             # output size: 120
