@@ -6,6 +6,7 @@ import tqdm
 import os
 import numpy as np
 import PIL
+import matplotlib.pyplot as plt
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -27,7 +28,8 @@ def predict(image_path):
     output = net(img_tensor)
     # return prediction
     # print(output)
-    return torch.argmax(output, dim=1).item()
+    prob, prediction = torch.max(output, dim=1)
+    return prob.item(), prediction.item()
 
 
 if __name__ == "__main__":
@@ -40,5 +42,6 @@ if __name__ == "__main__":
 
     # predict image
     IMAGE_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../sample/'
-    IMAGE_NAME = 'sample0.png'
-    print(f'prediction: {predict(IMAGE_PATH + IMAGE_NAME)}')
+    IMAGE_NAME = 'sample3.png'
+    prob, prediction = predict(IMAGE_PATH + IMAGE_NAME)
+    print(f'prediction: {prob * 100:.2f}% {prediction}')
