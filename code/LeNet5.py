@@ -53,14 +53,7 @@ class Net(nn.Module):
         
     
     def forward(self, x):
-        # pass through the first layer
-        x = self.conv1(x)
-        x = F.relu(x)
-        x = self.pool1(x)
-        # pass through the second layer
-        x = self.conv2(x)
-        x = F.relu(x)
-        x = self.pool2(x)
+
         # flatten the output of the second layer
         # where x.size(0) is the batch size
         # and -1 will be replaced with 5x5x16
@@ -69,19 +62,14 @@ class Net(nn.Module):
         # note that we use start_dim=1 because dim 0 is the batch dimension
         # if we don't use start_dim=1, we will get torch.Size([400]), which doesn't have the batch dim
         # this will cause errors for the subsequent layers
-        x = torch.flatten(x, start_dim=1)
-        # pass through the third layer
-        x = self.fc3(x)
-        x = F.relu(x)
-        # pass through the fourth layer
-        x = self.fc4(x)
-        x = F.relu(x)
-        # pass through the fifth layer
-        x = self.fc5(x)
+        # x = torch.flatten(x, start_dim=1)
+
         # reference: https://towardsdatascience.com/understanding-dimensions-in-pytorch-6edf9972d3be
         # since the input to softmax is of shape (batch_size,84)
         # we only want to perform softmax on 84, thus, we ignore the batch_size, i.e. dim=1
-        x = F.softmax(x, dim=1)
+        # x = F.softmax(x, dim=1)
+
+        x = self.layers(x)
         return x
 
 
