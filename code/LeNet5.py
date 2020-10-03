@@ -7,40 +7,42 @@ class Net(nn.Module):
 
     def __init__(self):
         super(Net, self).__init__()
+        self.layers = nn.Sequential(
         # CONV1
         # input size: 32x32x1
         # output size: 28x28x6
         # filter size: 5x5
-        self.conv1 = nn.Conv2d(in_channels=1, out_channels=6, kernel_size=(5,5))
+        nn.Conv2d(in_channels=1, out_channels=6, kernel_size=(5,5)),
         # POOL1
         # input size: 28x28x6
         # output size: 14x14x6
         # filter size: 2x2
         # stride: 2 horizontal steps, 2 vertical steps
-        self.pool1 = nn.MaxPool2d(kernel_size=(2,2), stride=(2,2))
+        nn.MaxPool2d(kernel_size=(2,2), stride=(2,2)),
         # CONV2
         # input size: 14x14x6
         # output size: 10x10x16
         # filter size: 5x5
-        self.conv2 = nn.Conv2d(in_channels=6, out_channels=16, kernel_size=(5,5))
+        nn.Conv2d(in_channels=6, out_channels=16, kernel_size=(5,5)),
         # POOL2
         # input size: 10x10x16
         # output size: 5x5x16
         # filter size: 2x2
         # stride: 2 horizontal steps, 2 vertical steps
-        self.pool2 = nn.MaxPool2d(kernel_size=(2,2), stride=(2,2))
+        nn.MaxPool2d(kernel_size=(2,2), stride=(2,2)),
         # FC3
         # input size: 5x5x16
         # output size: 120
-        self.fc3 = nn.Linear(in_features=5*5*16, out_features=120)
+        nn.Linear(in_features=5*5*16, out_features=120),
         # FC4
         # input size: 120
         # output size: 84
-        self.fc4 = nn.Linear(in_features=120, out_features=84)
+        nn.Linear(in_features=120, out_features=84),
         # FC5
         # input size: 84
         # output size: 10 (digit 0-9)
-        self.fc5 = nn.Linear(in_features=84, out_features=10)
+        nn.Linear(in_features=84, out_features=10)
+        )
         
     
     def forward(self, x):
