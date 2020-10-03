@@ -35,13 +35,13 @@ def predict(image_path):
 if __name__ == "__main__":
     # load the model
     FILEPATH = os.path.dirname(os.path.realpath(__file__)) + '/../model/'
-    FILENAME = 'lenet5-0.pth'
+    FILENAME = 'lenet5.pth'
     net = LeNet5.Net()
     # reference: https://pytorch.org/tutorials/beginner/saving_loading_models.html#saving-loading-model-across-devices
     net.load_state_dict(torch.load(FILEPATH + FILENAME,  map_location=device))
 
     # predict image
     IMAGE_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../sample/'
-    IMAGE_NAME = 'sample3.png'
+    IMAGE_NAME = 'sample0.png'
     prob, prediction = predict(IMAGE_PATH + IMAGE_NAME)
     print(f'prediction: {prob * 100:.2f}% {prediction}')
