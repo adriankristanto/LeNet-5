@@ -35,6 +35,8 @@ class Net(nn.Module):
             # CONV3
             # input size: 5x5x16
             # output size: 1x1x120
+            # can be implemented as an FC layer since the output is 1x1
+            # however, if the output is larger than 32x32, CONV layer is better
             nn.Conv2d(in_channels=16, out_channels=120, kernel_size=(5,5)),
             nn.ReLU(),
             # added flatten layer to flatten the image into a vector
