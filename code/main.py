@@ -6,7 +6,7 @@ import torch.optim as optim
 import matplotlib.pyplot as plt 
 import numpy as np
 import os
-import tqdm
+from tqdm import tqdm
 import LeNet5
 
 seed = torch.seed()
@@ -69,10 +69,12 @@ LEARNING_RATE=0.001
 optimizer = optim.Adam(net.parameters(), lr=LEARNING_RATE)
 
 # 5. train the model
-EPOCH = 20
+EPOCH = 10
 for epoch in range(EPOCH):
-    epoch_loss = 0.0
-    for data in tqdm.tqdm(trainloader, desc=f'Epoch {epoch+1}/{EPOCH}'):
+
+    trainloader = tqdm(trainloader)
+
+    for data in trainloader:
         inputs, labels = data[0].to(device), data[1].to(device)
         # 5a. zero the gradients
         optimizer.zero_grad()
@@ -85,8 +87,11 @@ for epoch in range(EPOCH):
         # 5e. update parameters
         optimizer.step()
 
-        epoch_loss += loss.item()
-    print(f'Loss: {epoch_loss / len(trainloader)}')
+        trainloader.set_description((
+            f"epoch: {epoch+1}/{EPOCH}; "
+            f"loss: {loss.item():.5f}; "
+            f"accuracy: {(torch.argmax(outputs, dim=1) == labels).sum().item() / len(labels):.5f}"
+        ))
 
 # 6. save the trained model
 MODEL_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../model/lenet5.pth'
@@ -97,7 +102,7 @@ correct = 0
 total = 0
 
 with torch.no_grad():
-    for data in tqdm.tqdm(testloader):
+    for data in tqdm(testloader):
         images, labels = data[0].to(device), data[1].to(device)
         outputs = net(images)
         # get the index that gives the maximum prediction
