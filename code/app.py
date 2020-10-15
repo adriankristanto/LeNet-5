@@ -1,4 +1,5 @@
 import torch
+import torch.nn.functional as F
 import torchvision
 import torchvision.transforms as transforms
 import LeNet5 
@@ -27,7 +28,7 @@ def predict(image_path):
     # forward propagation
     output = net(img_tensor)
     # return prediction
-    # print(output)
+    output = F.softmax(output, dim=1)
     prob, prediction = torch.max(output, dim=1)
     return prob.item(), prediction.item()
 
