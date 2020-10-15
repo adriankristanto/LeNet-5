@@ -32,13 +32,13 @@ class Net(nn.Module):
             # filter size: 2x2
             # stride: 2 horizontal steps, 2 vertical steps
             nn.MaxPool2d(kernel_size=(2,2), stride=(2,2)),
+            # CONV3
+            # input size: 5x5x16
+            # output size: 1x1x120
+            nn.Conv2d(in_channels=16, out_channels=120, kernel_size=(5,5)),
+            nn.ReLU(),
             # added flatten layer to flatten the image into a vector
             nn.Flatten(),
-            # FC3
-            # input size: 5x5x16
-            # output size: 120
-            nn.Linear(in_features=5*5*16, out_features=120),
-            nn.ReLU(),
             # FC4
             # input size: 120
             # output size: 84
