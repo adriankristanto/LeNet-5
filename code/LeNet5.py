@@ -47,8 +47,7 @@ class Net(nn.Module):
             # FC5
             # input size: 84
             # output size: 10 (digit 0-9)
-            nn.Linear(in_features=84, out_features=10),
-            nn.Softmax(dim=1)
+            nn.Linear(in_features=84, out_features=10)
         )
         
     
